@@ -1,0 +1,17 @@
+{
+  "manifest_version": 3,
+  "name": "Twitch Pred Fixer",
+  "version": "1.0",
+  "description": "Moves the annoying twitch popup out of the way.",
+  "permissions": ["storage"],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.twitch.tv/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ]
+}

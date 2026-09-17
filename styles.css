@@ -1,0 +1,16 @@
+
+.moving-box-thing {
+    position: fixed !important; 
+    resize: both !important;
+    overflow: auto !important;
+    z-index: 99999 !important;
+    transform: none !important; 
+}
+
+.grabby-part {
+    cursor: grab !important;
+}
+
+.grabby-part:active {
+    cursor: grabbing !important;
+}
