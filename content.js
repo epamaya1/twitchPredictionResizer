@@ -7,16 +7,16 @@ chrome.storage.local.get(['boxStateData'], (res) => {
 });
 
 const obs = new MutationObserver((mutations) => {
-    const stuff = document.querySelectorAll('h4, h5, div'); 
-    let titleThing = Array.from(stuff).find(el => el.textContent === 'Start a Prediction');
+    const popups = document.querySelectorAll('[role="dialog"]'); 
+    
+    popups.forEach(theActualPopup => {
+        const textThings = theActualPopup.querySelectorAll('h4, h5, div');
+        let titleThing = Array.from(textThings).find(el => el.textContent === 'Start a Prediction');
 
-    if (titleThing) {
-        let theActualPopup = titleThing.closest('[role="dialog"]') || titleThing.parentElement.parentElement;
-        
-        if (theActualPopup && !theActualPopup.classList.contains('moving-box-thing')) {
+        if (titleThing && !theActualPopup.classList.contains('moving-box-thing')) {
             makeItMove(theActualPopup, titleThing);
         }
-    }
+    });
 });
 
 obs.observe(document.body, { childList: true, subtree: true });
@@ -78,7 +78,7 @@ function makeItMove(box, grabber) {
 chrome.runtime.onMessage.addListener((req, sender, sendResponse) => {
     if (req.action === "oh_crap_go_back") {
         chrome.storage.local.remove('boxStateData');
-        cachedState = null;
+        cachedState = null; 
         
         const box = document.querySelector('.moving-box-thing');
         if (box) {
